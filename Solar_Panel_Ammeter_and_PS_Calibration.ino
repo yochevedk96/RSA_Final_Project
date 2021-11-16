@@ -12,7 +12,7 @@ Adafruit_INA260 ina260 = Adafruit_INA260();
 
 //Photoresistor Constants
 const int ps1Pin = A0;
-const in ps2Pin = A1;
+const int ps2Pin = A1;
 
 //Photorsisor Calibration Variables
 int ps1Min = 1023;
