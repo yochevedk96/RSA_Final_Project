@@ -103,6 +103,8 @@ void loop() {
         cellVoltage = analogRead(A2) * (5.0 / 700.0);
         display.print("Cell Volatage:  ");
         display.println(cellVoltage);
+        
+        //add ammeter reading 
         //Serial.println(analogRead(A2));
         display.display();
 
