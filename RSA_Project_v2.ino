@@ -37,6 +37,9 @@ const int ps2Pin = A1;
 int ps1;
 int ps2;
 
+//declare current sensor
+Adafruit_INA260 ina260 = Adafruit_INA260();
+
 //States for state machine
 enum states {normal, calibrate};
 enum states state;
@@ -47,6 +50,8 @@ void setup() {
   display.begin(SSD1306_SWITCHCAPVCC); //begin the OLED display communication
   pinMode(4, INPUT_PULLUP);
   state = normal;
+  ina260.begin();
+  
 }
 
 
@@ -104,8 +109,11 @@ void loop() {
         display.print("Cell Volatage:  ");
         display.println(cellVoltage);
         
-        //add ammeter reading 
+        float currentA = ina260.readCurrent() / 1000; //Read current and convert to Amps
         //Serial.println(analogRead(A2));
+        display.print("Current: ");
+        display.print(currentA);
+        display.println(" A");
         display.display();
 
       }
