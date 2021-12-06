@@ -8,7 +8,7 @@ float cellVoltage;
 #include <Wire.h>
 
 //Include Current Sensor Library
-#include <Adafruit_INA219.h>
+#include <Adafruit_INA260.h>
 #include <SPI.h> //include this library for SPI communication
 #include <Wire.h> //include this library since needed for the Adafruit library
 #include <Adafruit_SSD1306.h> //include the Adarfruit library for this specific OLED screen
@@ -39,7 +39,7 @@ int ps1;
 int ps2;
 
 //declare current sensor
-Adafruit_INA219 ina219 = Adafruit_INA219();
+Adafruit_INA260 ina260 = Adafruit_INA260();
 
 //States for state machine
 enum states {normal, calibrate};
@@ -51,7 +51,7 @@ void setup() {
   display.begin(SSD1306_SWITCHCAPVCC); //begin the OLED display communication
   pinMode(4, INPUT_PULLUP);
   state = normal;
-  if (!ina219.begin()) {
+  if (!ina260.begin()) {
     Serial.println("Couldn't find INA260 chip");
     while (1);
   }
@@ -115,11 +115,10 @@ void loop() {
         display.print("Cell Volatage:  ");
         display.println(cellVoltage);
         
-       // float currentA = ina260.readCurrent() / 1000; //Read current and convert to Amps
         //Serial.println(analogRead(A2));
         display.print("Current: ");
        // display.print(currentA);
-       display.print(ina219.getCurrent_mA()/1000.0);
+       display.print(ina260.readCurrent());
         display.println(" A");
         display.display();
 
